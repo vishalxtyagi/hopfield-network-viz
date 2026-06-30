@@ -1,113 +1,62 @@
-# 🧠 Interactive Hopfield Network Visualization
+<p align="center">
+  <img src="https://shieldcn.dev/header/glow.svg?title=Hopfield+Network+Visualization&subtitle=Interactive+neural+network+visualizations+%E2%80%94+basic+%26+advanced+patterns&logo=simple-icons:jupyter&theme=dark" alt="Hopfield Network Visualization" />
+</p>
 
-## 🎯 My Learning Journey
-
-I created this project with the assistance of ChatGPT and Claude (Anthropic), and I'm amazed by how it turned out! While I'm still wrapping my head around some of the advanced concepts, I wanted to share my learning journey with others who might be in a similar position.
-
-> **Personal Note**: Being completely honest, while I understand the basics well now, I'm still exploring and learning the advanced concepts. I believe this makes the project more relatable for others who are also on their learning journey!
-
-## 📚 Learning Progression
-
-### Basic vs Advanced Concepts
-
-| Aspect | Basic Version | Advanced Version |
-|--------|---------------|------------------|
-| **Complexity** | 2 neurons | 5x5 grid (25 neurons) |
-| **Visualization** | Energy landscape | Pattern recognition & recovery |
-| **Concepts** | Simple state changes | Pattern storage & noise handling |
-| **Understanding Level** | ✅ Clear understanding | 🔄 Still exploring |
-| **Best For** | Beginners | Intermediate/Advanced |
-
-### Detailed Content Breakdown
-
-#### 🌱 Basic Version (Getting Started)
-| Feature | Description | Difficulty |
-|---------|-------------|------------|
-| Two Neurons | Simple network with just two connected neurons | ⭐ |
-| Energy Visualization | Shows how "comfortable" the network is | ⭐⭐ |
-| State Changes | Demonstrates how neurons influence each other | ⭐⭐ |
-| Basic Plotting | Simple color-coded visualization | ⭐ |
-
-#### 🚀 Advanced Version (Deep Dive)
-| Feature | Description | Difficulty |
-|---------|-------------|------------|
-| Pattern Recognition | Stores and recalls letter patterns | ⭐⭐⭐⭐ |
-| Noise Handling | Recovers patterns from noisy input | ⭐⭐⭐⭐ |
-| Animation | Shows network evolution over time | ⭐⭐⭐ |
-| Multiple Patterns | Stores multiple patterns simultaneously | ⭐⭐⭐⭐⭐ |
-
-## 🤖 AI Assistance Recognition
-
-This project was developed with the help of:
-- **ChatGPT (OpenAI)**: Helped with initial code structure and explanations
-- **Claude (Anthropic)**: Assisted with code improvements and educational content
-
-I believe in being transparent about AI usage while learning - it's a powerful tool that helped me understand these concepts better!
-
-## 🚀 Getting Started
-
-Choose your starting point:
-
-### For Beginners (Like I Was!)
-1. Start with the basic two-neuron network
-2. Experiment with energy landscapes
-3. Understand simple state changes
-
-### For Advanced Users
-1. Explore pattern recognition
-2. Play with noise reduction
-3. Create custom patterns
-
-## 📊 Code Examples
-
-### Basic Example (I understand this well!)
-```python
-# Simple two-neuron network
-def create_energy_landscape():
-    weights = np.array([[0, 1], 
-                       [1, 0]])
-    # ... visualization code
-```
-
-### Advanced Example (Still exploring this!)
-```python
-# Pattern recognition network
-class AdvancedHopfieldNetwork:
-    def __init__(self, size):
-        self.size = size
-        self.weights = np.zeros((size, size))
-    # ... advanced functionality
-```
-
-## 🤝 Join My Learning Journey
-
-I'm still learning, and I'd love to:
-- Hear your explanations of the advanced concepts
-- Learn from your experiments
-- Collaborate on improvements
-- Share learning resources
-
-## 📚 Resources That Helped Me
-
-1. **Videos**:
-   - "[A Brain-Inspired Algorithm For Memory](https://www.youtube.com/watch?v=1WPJdAW-sFo)" by Artem Kirsanov
-   - Various YouTube tutorials on neural networks
-
-2. **AI Assistance**:
-   - ChatGPT: Helped break down complex concepts
-   - Claude: Provided detailed explanations and code improvements
-
-3. **Reasearch Paper**:
-   - Academic papers (still working on understanding these!)
-
-## 📫 Contact & Contribution
-
-Feel free to:
-- Share your understanding
-- Suggest improvements
-- Ask questions (I'm learning too!)
-- Contribute clearer explanations
+<p align="center">
+  <a href="https://hopfield-network-viz.pages.dev"><img src="https://shieldcn.dev/badge/live%20demo-pages.dev-F38020.svg?logo=cloudflare" alt="Live Demo" /></a>
+  <a href="https://github.com/vishalxtyagi/hopfield-network-viz/stargazers"><img src="https://shieldcn.dev/github/stars/vishalxtyagi/hopfield-network-viz.svg" alt="Stars" /></a>
+  <a href="https://github.com/vishalxtyagi/hopfield-network-viz"><img src="https://shieldcn.dev/github/license/vishalxtyagi/hopfield-network-viz.svg" alt="License" /></a>
+  <img src="https://shieldcn.dev/badge/notebook-Jupyter-F37626.svg?logo=jupyter" alt="Jupyter" />
+  <img src="https://shieldcn.dev/badge/deployed-Cloudflare%20Pages-F38020.svg?logo=cloudflare" alt="Cloudflare Pages" />
+</p>
 
 ---
 
-Made with ❤️ and lots of learning! Remember: Understanding complex concepts takes time, and that's perfectly okay! 🌟
+Interactive Jupyter notebook visualizations of **Hopfield Networks** — a type of recurrent neural network that stores patterns as energy minima and retrieves them through iterative updates.
+
+**🌐 Live:** [hopfield-network-viz.pages.dev](https://hopfield-network-viz.pages.dev)
+
+## What's included
+
+| Notebook | Level | What it explores |
+|---|---|---|
+| `basic_hopfield_network.ipynb` | Beginner | Pattern storage, Hebbian learning rule, synchronous updates |
+| `advance_hopfield_network.ipynb` | Advanced | Capacity limits, spurious states, asynchronous update dynamics |
+
+## Run locally
+
+```bash
+# With uv (recommended)
+uv run --with notebook jupyter notebook
+
+# Or with pip
+pip install -r requirements.txt
+jupyter notebook
+```
+
+## How Hopfield Networks work
+
+```
+Training phase:   Patterns → Weight matrix (Hebbian learning)
+Retrieval phase:  Noisy input → Iterative updates → Converge to stored pattern
+```
+
+Energy function: `E = -½ ∑ᵢⱼ wᵢⱼ sᵢ sⱼ`
+
+The network settles into the nearest energy minimum — which (ideally) corresponds to a stored pattern.
+
+## Auto-deploy
+
+Every push to `main` converts notebooks to static HTML and deploys to Cloudflare Pages:
+
+```
+push to main → GitHub Actions → jupyter nbconvert → wrangler pages deploy
+                                                   → hopfield-network-viz.pages.dev
+```
+
+---
+
+<p align="center">
+  Built by <a href="https://vishalxtyagi.in">Vishal Tyagi</a> ·
+  <a href="https://hopfield-network-viz.pages.dev">Live demo</a>
+</p>
