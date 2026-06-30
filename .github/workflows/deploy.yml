@@ -1,0 +1,36 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Convert notebooks to HTML
+        run: |
+          pip install nbconvert --quiet
+          jupyter nbconvert --to html *.ipynb
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=hopfield-network-viz --commit-dirty=true
+
+      - name: Notify portfolio
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PORTFOLIO_DISPATCH_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: 'vishalxtyagi',
+              repo: 'autobiography',
+              event_type: 'project-deployed',
+              client_payload: { source_repo: '${{ github.repository }}' }
+            });
